@@ -26,6 +26,15 @@ The goals / steps of this project are the following:
 [image6]: ./examples/example_output.jpg "Output"
 [video1]: ./project_video.mp4 "Video"
 
+[image7]: ./output_images/chess_original.png "chess original"
+[image8]: ./output_images/chess-undistorted.png "chess undistorted"
+[image9]: ./output_images/undistorted.png "undistorted"
+[image10]: ./output_images/threshdolded-s-xsobel.png "thresholded"
+[image11]: ./output_images/threshold-transform.png "warped"
+[image12]: ./output_images/transform.png "Fit Visual"
+[image13]: ./output_images/example_output.jpg "Output"
+[video2]: ./project_video.mp4 "Video"
+
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
