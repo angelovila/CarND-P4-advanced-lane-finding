@@ -56,9 +56,11 @@ Created a function called findchess that accepts a list of calibration images (i
 Resulting values from cv2.Calibrate camera can then be used to cv2.undistort which takes an image and returns an undistorted image based on the values gathered from cv2.Calibrate Camera
 
 Original chessboard image
+
 ![alt_text][image7]
 
 Undistorted chessboard image
+
 ![alt_text][image8]
 
 
@@ -77,61 +79,68 @@ Here's an example of an distortion-corrected image
 Created multiple functions for different types of thresholded binary images.
 -https://github.com/angelovila/CarND-P4-advanced-lane-finding/blob/master/p4.ipynb (from line 12 to line 20)
 
-Here's an example of a binary thesholded image
+Here's an example of a binary thesholded image.
+
 ![alt_text][image10]
 
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
+I first undistort the image and then apply a cv2.getPerspectiveTransform. 
+-https://github.com/angelovila/CarND-P4-advanced-lane-finding/blob/master/p4.ipynb (line 21)
 
-
+The following are used for the source and destination points
 ```
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
+src = np.float32([
+                  [240,670],
+                  [560,470],
+                  [720,470],
+                  [1040,670],
+                 ])
 
+dst = np.float32([
+                  [215,670],
+                  [215,0],
+                  [1065,0],
+                  [1065,670],
+])
 ```
-This resulted in the following source and destination points:
 
-| Source        | Destination   | 
-|:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
-
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+Resulting transformed image is below
 
 ![alt_text][image12]
 
-![alt text][image4]
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+-https://github.com/angelovila/CarND-P4-advanced-lane-finding/blob/master/p4.ipynb (line 27-28)
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+I created a function called lane_lines that accepts a transformed binary image. Then returns an output image with the lane lines identified with a plotted lines. Also returns the left and right polynomial values.
+
+It assumes a middle dividing line and between the binary-transfomed image and then assigns a value on the red channel, and then assigns a vlue on the blue color channel for the right lane line
+
+Then give a specific window dimension, it scans the image window by window counting the window with the most number of pixels to identify where is the lane line.
+
+Then using the identified windows for the left lane and right lane, the position of the window is then used to plot a polynomial
+
 
 ![alt_text][image13]
 
-![alt text][image5]
 
 ####5. Describe how (and identify where in your code) you calculated the radius of curvature of the 
 and the position of the vehicle with respect to center.
 
-I did this in lines # through # in my code in `my_other_file.py`
+Using the left and right polynomial values generated from lane_lines function, curvature is calculated using the equation
+curve=∣2A∣(1+(2Ay+B)**2)**3/2
+-https://github.com/angelovila/CarND-P4-advanced-lane-finding/blob/master/p4.ipynb (line 30)
+
+
 
 ####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+
 
 ![alt_text][image14]
-![alt text][image6]
+
 
 ---
 
@@ -147,5 +156,4 @@ Here's a [link to my video result](./p4.mp4)
 
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
-
+There issues on the thresholding where lane lines are not correctly detected on certain road conditions. Potentially the way to fix this is to have a specific location threshold inputs in the pipeline.
