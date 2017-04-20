@@ -31,8 +31,9 @@ The goals / steps of this project are the following:
 [image9]: ./output_images/undistorted.png "undistorted"
 [image10]: ./output_images/threshdolded-s-xsobel.png "thresholded"
 [image11]: ./output_images/threshold-transform.png "warped"
-[image12]: ./output_images/transform.png "Fit Visual"
-[image13]: ./output_images/example_output.jpg "Output"
+[image12]: ./output_images/transform.png "transformed"
+[image13]: ./output_images/lane_line.png "identify lane lines"
+[image14]: ./output_images/example_output.jpg "Output"
 [video2]: ./project_video.mp4 "Video"
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
@@ -54,6 +55,9 @@ I start by preparing "object points", which will be the (x, y, z) coordinates of
 
 I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function.  I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result: 
 
+![alt_text][image7]
+![alt_text][image8]
+
 ![alt text][image1]
 
 ###Pipeline (single images)
@@ -64,6 +68,7 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
 I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
+![alt_text][image9]
 ![alt text][image3]
 
 ####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
@@ -94,15 +99,20 @@ This resulted in the following source and destination points:
 
 I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
 
+![alt_text][image12]
+
 ![alt text][image4]
 
 ####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
+![alt_text][image13]
+
 ![alt text][image5]
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+####5. Describe how (and identify where in your code) you calculated the radius of curvature of the 
+and the position of the vehicle with respect to center.
 
 I did this in lines # through # in my code in `my_other_file.py`
 
@@ -110,6 +120,7 @@ I did this in lines # through # in my code in `my_other_file.py`
 
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
+![alt_text][image14]
 ![alt text][image6]
 
 ---
@@ -118,7 +129,7 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 ####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 
-Here's a [link to my video result](./project_video.mp4)
+Here's a [link to my video result](./p4.mp4)
 
 ---
 
